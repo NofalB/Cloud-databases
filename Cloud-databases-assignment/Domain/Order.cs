@@ -28,5 +28,23 @@ namespace Domain
         public OrderStatus OrderStatus { get; set; }
 
         public string PartitionKey { get; set; }
+
+        public Order(Guid orderId, Guid productId, int quantity, double totalPrice, OrderStatus orderStatus)
+        {
+            OrderId = orderId;
+            ProductId = productId;
+            OrderId = orderId;
+            Quantity = quantity;
+            TotalPrice = totalPrice;
+            OrderDate = DateTime.Now;
+            OrderStatus = orderStatus;
+            PartitionKey = orderId.ToString();
+
+        }
+
+        public Order()
+        {
+
+        }
     }
 }
