@@ -4,8 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <OutputType>Exe</OutputType>
-    <AssemblyName>ProjectIkwambe</AssemblyName>
-    <RootNamespace>ProjectIkwambe</RootNamespace>
+    <AssemblyName>Cloud_databases_assignment</AssemblyName>
+    <RootNamespace>Cloud_databases_assignment</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

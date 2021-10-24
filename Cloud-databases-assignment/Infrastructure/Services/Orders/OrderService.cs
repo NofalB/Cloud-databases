@@ -40,8 +40,8 @@ namespace Infrastructure.Services.Orders
 
         public async Task<Order> UpdateOrder(Order order, Guid orderId)
         {
-            var existingStory = await GetOrderById(orderId);
-            if (existingStory != null)
+            var existingOrder = await GetOrderById(orderId);
+            if (existingOrder != null)
             {
                 return await _orderWriteRepository.Update(order);
             }

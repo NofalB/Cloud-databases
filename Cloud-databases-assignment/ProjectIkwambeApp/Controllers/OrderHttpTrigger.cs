@@ -25,8 +25,8 @@ namespace Cloud_databases_assignment.Controllers
             _orderService = orderService;
         }
 
-        [Function("AddStory")]
-        public async Task<HttpResponseData> AddStory([HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route = "orders")] HttpRequestData req, FunctionContext executionContext)
+        [Function("AddOrder")]
+        public async Task<HttpResponseData> AddOrder([HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route = "orders")] HttpRequestData req, FunctionContext executionContext)
         {
             
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
