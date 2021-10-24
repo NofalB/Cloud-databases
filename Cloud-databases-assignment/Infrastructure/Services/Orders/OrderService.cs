@@ -23,7 +23,7 @@ namespace Infrastructure.Services.Orders
 
         public async Task<Order> AddOrder(OrderDTO orderDTO)
         {
-            Order order = new Order(Guid.NewGuid(),Guid.NewGuid(),orderDTO.Quantity,orderDTO.TotalPrice,OrderStatus.ordered);
+            Order order = new Order(orderDTO.ProductId,Guid.NewGuid(),orderDTO.Quantity,orderDTO.TotalPrice,OrderStatus.ordered);
             return await _orderWriteRepository.AddAsync(order);
         }
 
@@ -32,23 +32,44 @@ namespace Infrastructure.Services.Orders
             return await _orderReadRepository.GetAll().ToListAsync();
         }
 
-        public async Task<Order> GetOrderById(Guid orderId)
+        public async Task<Order> GetOrderById(string orderId)
         {
-            var order = await _orderReadRepository.GetAll().FirstOrDefaultAsync(t => t.OrderId == orderId);
+            var orderGuid = Guid.Parse(orderId);
+            var order = await _orderReadRepository.GetAll().FirstOrDefaultAsync(t => t.OrderId == orderGuid);
             return order;
         }
 
-        public async Task<Order> UpdateOrder(Order order, Guid orderId)
+        public async Task<Order> UpdateOrderStatus(OrderStatusDTO order, string orderId)
         {
             var existingOrder = await GetOrderById(orderId);
             if (existingOrder != null)
             {
-                return await _orderWriteRepository.Update(order);
+                var status=(OrderStatus)Enum.Parse(typeof(OrderStatus), order.OrderStatus);
+                existingOrder.OrderStatus = status;
+                return await _orderWriteRepository.Update(existingOrder);
             }
             else
             {
                 throw new InvalidOperationException("The order ID provided does not exist");
             }
         }
+
+
+        public async Task DeleteOrderAsync(string orderId)
+        {
+            var id = !string.IsNullOrEmpty(orderId) ? orderId : throw new ArgumentNullException($"{orderId} cannot be null or empty string.");
+            Order order = await GetOrderById(id);
+
+            if (order != null)
+            {
+                await _orderWriteRepository.Delete(order);
+            }
+            else
+            {
+                throw new InvalidOperationException($"The user ID {orderId} provided is invalid.");
+            }
+        }
+
+
     }
 }

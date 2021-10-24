@@ -12,11 +12,14 @@ namespace Infrastructure.Services.Orders
     {
         Task<IEnumerable<Order>> GetAllOrders();
 
-        Task<Order> GetOrderById(Guid orderId);
+        Task<Order> GetOrderById(string orderId);
 
         Task<Order> AddOrder(OrderDTO order);
 
-        Task<Order> UpdateOrder(Order order, Guid orderId);
-        
+        Task<Order> UpdateOrderStatus(OrderStatusDTO order, string orderId);
+
+        Task DeleteOrderAsync(string orderId);
+
+
     }
 }
