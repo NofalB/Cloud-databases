@@ -1,3 +1,4 @@
+using Cloud_databases_assignment.ErrorHandlerMiddleware;
 using Domain;
 using Infrastructure.DBContext;
 using Infrastructure.Repositories;
@@ -19,7 +20,9 @@ namespace Cloud_databases_assignment.Startup {
 	public class Program {
 		public static void Main() {
 			IHost host = new HostBuilder()
-				.ConfigureFunctionsWorkerDefaults(worker => worker.UseNewtonsoftJson())
+				.ConfigureFunctionsWorkerDefaults((IFunctionsWorkerApplicationBuilder Builder) => {
+					Builder.UseMiddleware<GlobalErrorHandler>();
+				})
 				.ConfigureServices(Configure)
 				.Build();
 

@@ -45,7 +45,7 @@ namespace Infrastructure.Services.Orders
             }
             catch
             {
-                throw new InvalidOperationException("Please check all the fields are filled");
+                throw new InvalidOperationException("Please check all the fields are filled with correct values");
             }
             
 
