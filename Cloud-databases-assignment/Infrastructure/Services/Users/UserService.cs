@@ -39,21 +39,6 @@ namespace Infrastructure.Services.Products
             return await _userWriteRepository.AddAsync(user);
         }
 
-        public async Task DeleteUserAsync(string userId)
-        {
-            var id = !string.IsNullOrEmpty(userId) ? userId : throw new ArgumentNullException($"{userId} cannot be null or empty string.");
-            User user = await GetUserById(id);
-
-            if (user != null)
-            {
-                await _userWriteRepository.Delete(user);
-            }
-            else
-            {
-                throw new InvalidOperationException($"The user ID {userId} provided is invalid.");
-            }
-        }
-
         public async Task<IEnumerable<User>> GetAllUsers()
         {
             return await _userReadRepository.GetAll().ToListAsync();

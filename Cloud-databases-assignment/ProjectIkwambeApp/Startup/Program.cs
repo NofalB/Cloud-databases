@@ -44,6 +44,8 @@ namespace Cloud_databases_assignment.Startup {
 			// Services
 			Services.AddScoped<IOrderService, OrderService>();
 			Services.AddScoped<IProductService, ProductService>();
+			Services.AddScoped<IUserService, UserService>();
+
 
 		}
 	}

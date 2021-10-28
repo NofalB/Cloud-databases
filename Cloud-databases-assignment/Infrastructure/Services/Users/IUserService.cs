@@ -18,8 +18,5 @@ namespace Infrastructure.Services.Products
         Task<User> AddUser(UserDTO userDto);
 
         Task<User> UpdateUser(UserDTO userDto, string userId);
-
-        Task DeleteUserAsync(string userId);
-
     }
 }
