@@ -11,6 +11,8 @@ namespace Infrastructure.DBContext
     public class CosmosDbContext : DbContext
     {
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
+
 
         public CosmosDbContext(DbContextOptions options) : base(options)
         {
@@ -28,6 +30,13 @@ namespace Infrastructure.DBContext
                 .HasNoDiscriminator() // HasNoDiscriminator() removes the discriminator since no other entity type will be stored in this container
                 .HasPartitionKey(d => d.PartitionKey)
                 .UseETagConcurrency();
+
+
+            modelBuilder.Entity<Product>()
+               .ToContainer(nameof(Products))
+               .HasNoDiscriminator() 
+               .HasPartitionKey(d => d.PartitionKey)
+               .UseETagConcurrency();
 
 
         }

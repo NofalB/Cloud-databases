@@ -33,14 +33,16 @@ namespace Infrastructure.Services.Products
 
         public async Task<Product> AddProduct(ProductDTO productDto)
         {
+            Guid id = Guid.NewGuid();
             Product product = new Product();
-            product.ProductId = new Guid();
+            product.ProductId = id;
             product.ProductName = productDto.ProductName;
             product.ProductType = productDto.ProductType;
             product.Description = productDto.Description;
-            product.Price = productDto.Quantity;
+            product.Quantity = productDto.Quantity;
             product.Price = productDto.Price;
             product.ImageUrl = "";
+            product.PartitionKey = id.ToString();
 
             return await _productWriteRepository.AddAsync(product);
 

@@ -85,7 +85,7 @@ namespace Cloud_databases_assignment.Controllers
 
             HttpResponseData response = req.CreateResponse(HttpStatusCode.Accepted);
             await _productService.DeleteProductAsync(productId);
-            await response.WriteStringAsync("The order has been deleted");
+            await response.WriteStringAsync($"The specified product with id {productId} has been deleted");
             return response;
         }
     }

@@ -30,7 +30,7 @@ namespace Domain
 
         public Product()
         {
-
+            PartitionKey = ProductId.ToString();
         }
     }
 }
