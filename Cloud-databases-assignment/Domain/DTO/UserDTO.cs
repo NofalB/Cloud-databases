@@ -5,21 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Domain.DTO
 {
-    public class User
+    public class UserDTO
     {
-        [JsonProperty("id")]
-        public Guid UserId { get; set; }
-
-        [JsonProperty("firstName")]
+        [JsonRequired]
         public string FirstName { get; set; }
 
-        [JsonProperty("lastName")]
+        [JsonRequired]
         public string LastName { get; set; }
-
-        public Guid PartitionKey { get; set; }
-
-
     }
 }
