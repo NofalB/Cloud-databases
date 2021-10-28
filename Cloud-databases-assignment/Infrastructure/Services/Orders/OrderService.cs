@@ -23,7 +23,7 @@ namespace Infrastructure.Services.Orders
 
         public async Task<Order> AddOrder(OrderDTO orderDTO)
         {
-            Order order = new Order(orderDTO.ProductId,Guid.NewGuid(),orderDTO.Quantity,orderDTO.TotalPrice,OrderStatus.ordered);
+            Order order = new Order(orderDTO.ProductId,Guid.NewGuid(),orderDTO.Quantity,orderDTO.TotalPrice,OrderStatus.ordered, orderDTO.ShippingDate, orderDTO.UserId);
             return await _orderWriteRepository.AddAsync(order);
         }
 
@@ -66,7 +66,7 @@ namespace Infrastructure.Services.Orders
             }
             else
             {
-                throw new InvalidOperationException($"The user ID {orderId} provided is invalid.");
+                throw new InvalidOperationException($"The order ID {orderId} provided is invalid.");
             }
         }
 

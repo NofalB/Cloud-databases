@@ -27,5 +27,10 @@ namespace Domain
         public string ImageUrl { get; set; }
 
         public string PartitionKey { get; set; }
+
+        public Product()
+        {
+
+        }
     }
 }

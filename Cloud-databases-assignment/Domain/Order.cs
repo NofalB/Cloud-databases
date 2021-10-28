@@ -27,9 +27,15 @@ namespace Domain
         [JsonProperty("orderStatus")]
         public OrderStatus OrderStatus { get; set; }
 
+        [JsonProperty("shippingDate")]
+        public DateTime ShippingDate { get; set; }
+
+        [JsonProperty("userId")]
+        public Guid? UserId { get; set; }
+
         public string PartitionKey { get; set; }
 
-        public Order(Guid orderId, Guid productId, int quantity, double totalPrice, OrderStatus orderStatus)
+        public Order(Guid orderId, Guid productId, int quantity, double totalPrice, OrderStatus orderStatus, DateTime shippingDate, Guid? userId)
         {
             OrderId = orderId;
             ProductId = productId;
@@ -38,6 +44,8 @@ namespace Domain
             TotalPrice = totalPrice;
             OrderDate = DateTime.Now;
             OrderStatus = orderStatus;
+            ShippingDate = shippingDate;
+            UserId = userId;
             PartitionKey = orderId.ToString();
 
         }

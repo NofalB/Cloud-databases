@@ -18,11 +18,18 @@ namespace Domain.DTO
         [JsonRequired]
         public double TotalPrice { get; set; }
 
-        public OrderDTO(Guid productId,int quantity, double totalPrice)
+        [JsonRequired]
+        public DateTime ShippingDate { get; set; }
+
+        public Guid? UserId { get; set; }
+
+        public OrderDTO(Guid productId,int quantity, double totalPrice, DateTime shippingDate, Guid? userId)
         {
             ProductId = productId;
             Quantity = quantity;
             TotalPrice = totalPrice;
+            ShippingDate = shippingDate;
+            UserId = userId;
 
         }
     }
