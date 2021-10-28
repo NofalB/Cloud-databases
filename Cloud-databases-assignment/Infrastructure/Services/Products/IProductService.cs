@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Domain.DTO;
+using HttpMultipartParser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,11 @@ namespace Infrastructure.Services.Products
 
         Task<Product> UpdateProduct(ProductDTO product, string productId);
 
+        Task<Product> UpdateProduct(Product product);
+
         Task DeleteProductAsync(string productId);
+
+        Task UploadImage(string productId, FilePart file);
+
     }
 }

@@ -1,7 +1,11 @@
-﻿using Domain;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Domain;
 using Domain.DTO;
+using HttpMultipartParser;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +18,17 @@ namespace Infrastructure.Services.Products
     {
         private readonly ICosmosReadRepository<Product> _productReadRepository;
         private readonly ICosmosWriteRepository<Product> _productWriteRepository;
+        private BlobServiceClient blobServiceClient;
+        private BlobContainerClient containerClient;
 
-        public ProductService(ICosmosReadRepository<Product> productReadRepository, ICosmosWriteRepository<Product> productWriteRepository)
+
+        public ProductService(ICosmosReadRepository<Product> productReadRepository, ICosmosWriteRepository<Product> productWriteRepository, IOptions<BlobCredentialOptions> options)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
+
+            blobServiceClient = new BlobServiceClient(Environment.GetEnvironmentVariable("BlobCredentialOptions:ConnectionString", EnvironmentVariableTarget.Process));
+            containerClient = blobServiceClient.GetBlobContainerClient(Environment.GetEnvironmentVariable("BlobCredentialOptions:ContainerName", EnvironmentVariableTarget.Process));
         }
 
         public async Task<Product> AddProduct(ProductDTO productDto)
@@ -83,6 +93,38 @@ namespace Infrastructure.Services.Products
             {
                 throw new InvalidOperationException("The product ID provided does not exist");
             }
+        }
+
+        public async Task<Product> UpdateProduct(Product product)
+        {
+            return await _productWriteRepository.Update(product);
+        }
+
+        public async Task UploadImage(string productId, FilePart file)
+        {
+            if (file.ContentType == "image/jpeg" || file.ContentType == "image/bmp" || file.ContentType == "image/png")
+            {
+                // Get a reference to a blob
+                BlobClient blobClient = containerClient.GetBlobClient(file.Name);
+
+                // Upload the file
+                await blobClient.UploadAsync(file.Data, new BlobHttpHeaders { ContentType = file.ContentType });
+
+                //get the URL of the uploaded image
+                var blobUrl = blobClient.Uri.AbsoluteUri;
+
+                var product = await GetProductById(productId);
+
+                //set the new url for the existing story
+                product.ImageUrl = blobUrl;
+
+                await UpdateProduct(product);
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid content type. Media type not supported. Upload a valid image of type jpeg,bmp or png.");
+            }
+
         }
     }
 }

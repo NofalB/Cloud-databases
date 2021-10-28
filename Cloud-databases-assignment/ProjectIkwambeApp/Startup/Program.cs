@@ -3,6 +3,7 @@ using Infrastructure.DBContext;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Infrastructure.Services.Orders;
+using Infrastructure.Services.Products;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Extensions.OpenApi;
 using Microsoft.Azure.Functions.Worker.Extensions.OpenApi.Extensions;
@@ -42,6 +43,8 @@ namespace Cloud_databases_assignment.Startup {
 
 			// Services
 			Services.AddScoped<IOrderService, OrderService>();
+			Services.AddScoped<IProductService, ProductService>();
+
 		}
 	}
 }
