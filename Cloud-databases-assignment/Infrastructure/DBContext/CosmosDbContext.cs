@@ -12,6 +12,8 @@ namespace Infrastructure.DBContext
     {
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<ProductReview> ProductReviews { get; set; }
 
 
         public CosmosDbContext(DbContextOptions options) : base(options)
@@ -35,6 +37,18 @@ namespace Infrastructure.DBContext
             modelBuilder.Entity<Product>()
                .ToContainer(nameof(Products))
                .HasNoDiscriminator() 
+               .HasPartitionKey(d => d.PartitionKey)
+               .UseETagConcurrency();
+
+            modelBuilder.Entity<User>()
+               .ToContainer(nameof(Users))
+               .HasNoDiscriminator()
+               .HasPartitionKey(d => d.PartitionKey)
+               .UseETagConcurrency();
+
+            modelBuilder.Entity<ProductReview>()
+               .ToContainer(nameof(ProductReviews))
+               .HasNoDiscriminator()
                .HasPartitionKey(d => d.PartitionKey)
                .UseETagConcurrency();
 
