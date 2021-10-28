@@ -20,7 +20,6 @@ namespace Cloud_databases_assignment.Startup {
 		public static void Main() {
 			IHost host = new HostBuilder()
 				.ConfigureFunctionsWorkerDefaults(worker => worker.UseNewtonsoftJson())
-				.ConfigureOpenApi()
 				.ConfigureServices(Configure)
 				.Build();
 

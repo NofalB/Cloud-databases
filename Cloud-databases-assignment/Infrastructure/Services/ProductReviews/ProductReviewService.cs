@@ -35,7 +35,7 @@ namespace Infrastructure.Services.Products
                 {
                     throw new NullReferenceException($"{nameof(productReviewDTO)} cannot be null.");
                 }
-                var product = _productService.GetProductById(productReviewDTO.ProductId.ToString());
+                var product = await _productService.GetProductById(productReviewDTO.ProductId.ToString());
 
                 if (product == null)
                 {

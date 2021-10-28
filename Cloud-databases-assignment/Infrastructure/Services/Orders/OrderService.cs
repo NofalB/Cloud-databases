@@ -32,7 +32,7 @@ namespace Infrastructure.Services.Orders
                 {
                     throw new NullReferenceException($"{nameof(orderDTO)} cannot be null.");
                 }
-                var product = _productService.GetProductById(orderDTO.ProductId.ToString());
+                var product = await _productService.GetProductById(orderDTO.ProductId.ToString());
 
                 if (product == null)
                 {
