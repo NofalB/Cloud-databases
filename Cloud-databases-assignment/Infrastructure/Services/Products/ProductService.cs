@@ -22,7 +22,7 @@ namespace Infrastructure.Services.Products
         private BlobContainerClient containerClient;
 
 
-        public ProductService(ICosmosReadRepository<Product> productReadRepository, ICosmosWriteRepository<Product> productWriteRepository, IOptions<BlobCredentialOptions> options)
+        public ProductService(ICosmosReadRepository<Product> productReadRepository, ICosmosWriteRepository<Product> productWriteRepository)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
@@ -33,6 +33,11 @@ namespace Infrastructure.Services.Products
 
         public async Task<Product> AddProduct(ProductDTO productDto)
         {
+            if (productDto == null)
+            {
+                throw new NullReferenceException($"{nameof(productDto)} cannot be null.");
+            }
+
             Guid id = Guid.NewGuid();
             Product product = new Product();
             product.ProductId = id;
@@ -70,24 +75,34 @@ namespace Infrastructure.Services.Products
 
         public async Task<Product> GetProductById(string productId)
         {
-            var productGuid = Guid.Parse(productId);
-            var product = await _productReadRepository.GetAll().FirstOrDefaultAsync(t => t.ProductId == productGuid);
-            return product;
+            try
+            {
+                Guid id = !string.IsNullOrEmpty(productId) ? Guid.Parse(productId) : throw new ArgumentNullException("No productId was provided.");
+
+                var product = await _productReadRepository.GetAll().FirstOrDefaultAsync(t => t.ProductId == id);
+                return product;
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Invalid productReviewId {productId} provided.");
+            }            
         }
 
         public async Task<Product> UpdateProduct(ProductDTO productDto, string productId)
         {
+            if (productDto == null)
+            {
+                throw new NullReferenceException($"{nameof(productDto)} cannot be null.");
+            }
+
             var existingProduct = await GetProductById(productId);
             if (existingProduct != null)
             {
-                Product product = new Product();
-                product.ProductId = existingProduct.ProductId;
-                product.ProductName = productDto.ProductName;
-                product.ProductType = productDto.ProductType;
-                product.Description = productDto.Description;
-                product.Price = productDto.Quantity;
-                product.Price = productDto.Price;
-                product.ImageUrl = existingProduct.ImageUrl;
+                existingProduct.ProductName = productDto.ProductName;
+                existingProduct.ProductType = productDto.ProductType;
+                existingProduct.Description = productDto.Description;
+                existingProduct.Quantity = productDto.Quantity;
+                existingProduct.Price = productDto.Price;
 
                 return await _productWriteRepository.Update(existingProduct);
             }

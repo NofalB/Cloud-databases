@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Domain.DTO;
 using Infrastructure.Repositories;
+using Infrastructure.Services.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,17 +15,41 @@ namespace Infrastructure.Services.Orders
     {
         private readonly ICosmosReadRepository<Order> _orderReadRepository;
         private readonly ICosmosWriteRepository<Order> _orderWriteRepository;
+        private readonly IProductService _productService;
 
-        public OrderService(ICosmosReadRepository<Order> orderReadRepository, ICosmosWriteRepository<Order> orderWriteRepository)
+        public OrderService(ICosmosReadRepository<Order> orderReadRepository, ICosmosWriteRepository<Order> orderWriteRepository, IProductService productService)
         {
             _orderReadRepository = orderReadRepository;
             _orderWriteRepository = orderWriteRepository;
+            _productService = productService;
         }
 
         public async Task<Order> AddOrder(OrderDTO orderDTO)
         {
-            Order order = new Order(orderDTO.ProductId,Guid.NewGuid(),orderDTO.Quantity,orderDTO.TotalPrice,OrderStatus.ordered, orderDTO.ShippingDate, orderDTO.UserId);
-            return await _orderWriteRepository.AddAsync(order);
+            try
+            {
+                if (orderDTO == null)
+                {
+                    throw new NullReferenceException($"{nameof(orderDTO)} cannot be null.");
+                }
+                var product = _productService.GetProductById(orderDTO.ProductId.ToString());
+
+                if (product == null)
+                {
+                    throw new NullReferenceException($"this product with product id {orderDTO.ProductId} does not exist");
+
+                }
+                Order order = new Order( Guid.NewGuid(), orderDTO.ProductId, orderDTO.Quantity, orderDTO.TotalPrice, OrderStatus.ordered, orderDTO.ShippingDate, orderDTO.UserId);
+                return await _orderWriteRepository.AddAsync(order);
+
+            }
+            catch
+            {
+                throw new InvalidOperationException("Please check all the fields are filled");
+            }
+            
+
+            
         }
 
         public async Task<IEnumerable<Order>> GetAllOrders()
@@ -34,9 +59,17 @@ namespace Infrastructure.Services.Orders
 
         public async Task<Order> GetOrderById(string orderId)
         {
-            var orderGuid = Guid.Parse(orderId);
-            var order = await _orderReadRepository.GetAll().FirstOrDefaultAsync(t => t.OrderId == orderGuid);
-            return order;
+            try
+            {
+                Guid id = !string.IsNullOrEmpty(orderId) ? Guid.Parse(orderId) : throw new ArgumentNullException("No order Id was provided.");
+
+                var order = await _orderReadRepository.GetAll().FirstOrDefaultAsync(t => t.OrderId == id);
+                return order;
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Invalid user Id {orderId} provided.");
+            }            
         }
 
         public async Task<Order> UpdateOrder(OrderUpdateDTO order, string orderId)

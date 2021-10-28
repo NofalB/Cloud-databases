@@ -10,7 +10,7 @@ namespace Domain
     public class ProductReview
     {
         [JsonProperty("id")]
-        public Guid ReviewId { get; set; }
+        public Guid ProductReviewId { get; set; }
 
         [JsonProperty("productId")]
         public Guid ProductId { get; set; }

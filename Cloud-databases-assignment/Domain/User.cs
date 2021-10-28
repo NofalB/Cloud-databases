@@ -18,7 +18,7 @@ namespace Domain
         [JsonProperty("lastName")]
         public string LastName { get; set; }
 
-        public Guid PartitionKey { get; set; }
+        public string PartitionKey { get; set; }
 
 
     }

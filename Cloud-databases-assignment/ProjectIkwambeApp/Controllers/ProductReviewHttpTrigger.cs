@@ -37,8 +37,8 @@ namespace Cloud_databases_assignment.Controllers
 
         }
 
-        [Function(nameof(ProductReviewHttpTrigger.GetUsers))]
-        public async Task<HttpResponseData> GetUsers([HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route = "product/reviews")] HttpRequestData req, FunctionContext executionContext)
+        [Function(nameof(ProductReviewHttpTrigger.GetReviews))]
+        public async Task<HttpResponseData> GetReviews([HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route = "product/reviews")] HttpRequestData req, FunctionContext executionContext)
         {
             
             HttpResponseData response = req.CreateResponse(HttpStatusCode.OK);
@@ -49,8 +49,8 @@ namespace Cloud_databases_assignment.Controllers
             
         }
 
-        [Function(nameof(ProductReviewHttpTrigger.GetUsersById))]
-        public async Task<HttpResponseData> GetUsersById([HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route = "product/reviews/{reviewId}")] HttpRequestData req, string reviewId, FunctionContext executionContext)
+        [Function(nameof(ProductReviewHttpTrigger.GetReviewsById))]
+        public async Task<HttpResponseData> GetReviewsById([HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route = "product/reviews/{reviewId}")] HttpRequestData req, string reviewId, FunctionContext executionContext)
         {
 
             HttpResponseData response = req.CreateResponse(HttpStatusCode.OK);
@@ -59,8 +59,8 @@ namespace Cloud_databases_assignment.Controllers
 
         }
 
-        [Function(nameof(ProductReviewHttpTrigger.UpdateUser))]
-        public async Task<HttpResponseData> UpdateUser([HttpTrigger(AuthorizationLevel.Anonymous, "PUT", Route = "users/{reviewId}")] HttpRequestData req, string reviewId, FunctionContext executionContext)
+        [Function(nameof(ProductReviewHttpTrigger.UpdateReview))]
+        public async Task<HttpResponseData> UpdateReview([HttpTrigger(AuthorizationLevel.Anonymous, "PUT", Route = "product/reviews/{reviewId}")] HttpRequestData req, string reviewId, FunctionContext executionContext)
         {
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
