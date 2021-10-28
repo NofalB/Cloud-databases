@@ -1,0 +1,459 @@
+{
+	"info": {
+		"_postman_id": "d47981b8-041f-45aa-8520-dd141e263105",
+		"name": "Cloud-db-assignment Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\":\"ba4a1854-cd0f-4be3-ad12-f8c87ac803fc\",\r\n  \"shippingDate\":\"2021-11-07\",\r\n  \"quantity\": \"1\",\r\n  \"totalPrice\": \"1199\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/orders",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/orders",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7071/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productName\": \"XBOX SERIES X\",\r\n  \"productType\": \"gaming\",\r\n  \"description\":\"Best console for multiplats\",\r\n  \"quantity\": 500,\r\n  \"price\":499\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get products by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/products/7285f4e1-8e9f-4021-acd0-3cfb23ef9d7f",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"products",
+						"7285f4e1-8e9f-4021-acd0-3cfb23ef9d7f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload product image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "ps5",
+							"type": "file",
+							"src": "/C:/Users/Huis/Downloads/ps5.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/upload/7285f4e1-8e9f-4021-acd0-3cfb23ef9d7f",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"upload",
+						"7285f4e1-8e9f-4021-acd0-3cfb23ef9d7f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productName\": \"PS5\",\r\n  \"productType\": \"gaming\",\r\n  \"description\":\"Best PS console ever, ultra fast\",\r\n  \"quantity\": 100,\r\n  \"price\":499\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/products/7285f4e1-8e9f-4021-acd0-3cfb23ef9d7f",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"products",
+						"7285f4e1-8e9f-4021-acd0-3cfb23ef9d7f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/products/00000000-0000-0000-0000-000000000000",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"products",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update order",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"shippingDate\":\"2021-11-05\",\r\n  \"orderStatus\":\"ordered\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/orders/dc022bdc-8000-4326-8c1a-e46c1197742b",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"orders",
+						"dc022bdc-8000-4326-8c1a-e46c1197742b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Johny2\",\r\n  \"lastName\": \"Test2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/users",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Johny2update\",\r\n  \"lastName\": \"Test2update\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/users/b24c0ac9-d112-4451-8c39-f39bc9e837dd",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users",
+						"b24c0ac9-d112-4451-8c39-f39bc9e837dd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/users",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/users/b24c0ac9-d112-4451-8c39-f39bc9e837dd",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"users",
+						"b24c0ac9-d112-4451-8c39-f39bc9e837dd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add review",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": \"7285f4e1-8e9f-4021-acd0-3cfb23ef9d7f\",\r\n  \"title\": \"best console ever\",\r\n  \"description\":\"Best console for exclusives\",\r\n  \"rating\": \"excellent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/product/reviews",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"product",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update review",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": \"7285f4e1-8e9f-4021-acd0-3cfb23ef9d7f\",\r\n  \"title\": \"best console ever!!\",\r\n  \"description\":\"Best console for exclusives\",\r\n  \"rating\": \"excellent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/product/reviews/b8ef3289-d60c-47b5-bfea-00d3ea4b21e5",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"product",
+						"reviews",
+						"b8ef3289-d60c-47b5-bfea-00d3ea4b21e5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all review",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/product/reviews",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"product",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get review by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cloud-databases-assignment-widgetco.azurewebsites.net/api/product/reviews/b8ef3289-d60c-47b5-bfea-00d3ea4b21e5",
+					"protocol": "https",
+					"host": [
+						"cloud-databases-assignment-widgetco",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"product",
+						"reviews",
+						"b8ef3289-d60c-47b5-bfea-00d3ea4b21e5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
