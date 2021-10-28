@@ -31,7 +31,7 @@ namespace Cloud_databases_assignment.Startup {
 			// DBContext
 			Services.AddDbContext<CosmosDbContext>(option =>
 			{
-				option.UseCosmos("https://localhost:8081", "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==", "WidgetCoDB");
+				option.UseCosmos(Environment.GetEnvironmentVariable("CosmosDb:Account", EnvironmentVariableTarget.Process), Environment.GetEnvironmentVariable("CosmosDb:Key", EnvironmentVariableTarget.Process), Environment.GetEnvironmentVariable("CosmosDb:DatabaseName", EnvironmentVariableTarget.Process));
 
 			});
 
