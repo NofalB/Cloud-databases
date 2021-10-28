@@ -21,6 +21,7 @@ namespace Domain.DTO
         [JsonRequired]
         public DateTime ShippingDate { get; set; }
 
+        //setting it nullable so it doesnt always have to be a part of order
         public Guid? UserId { get; set; }
 
         public OrderDTO(Guid productId,int quantity, double totalPrice, DateTime shippingDate, Guid? userId)

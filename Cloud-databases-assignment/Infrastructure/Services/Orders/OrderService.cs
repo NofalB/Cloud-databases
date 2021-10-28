@@ -39,13 +39,13 @@ namespace Infrastructure.Services.Orders
             return order;
         }
 
-        public async Task<Order> UpdateOrderStatus(OrderStatusDTO order, string orderId)
+        public async Task<Order> UpdateOrder(OrderUpdateDTO order, string orderId)
         {
             var existingOrder = await GetOrderById(orderId);
             if (existingOrder != null)
             {
-                var status=(OrderStatus)Enum.Parse(typeof(OrderStatus), order.OrderStatus);
-                existingOrder.OrderStatus = status;
+                existingOrder.ShippingDate = order.ShippingDate;
+                existingOrder.OrderStatus = order.OrderStatus;
                 return await _orderWriteRepository.Update(existingOrder);
             }
             else

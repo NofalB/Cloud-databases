@@ -16,7 +16,7 @@ namespace Infrastructure.Services.Orders
 
         Task<Order> AddOrder(OrderDTO order);
 
-        Task<Order> UpdateOrderStatus(OrderStatusDTO order, string orderId);
+        Task<Order> UpdateOrder(OrderUpdateDTO order, string orderId);
 
         Task DeleteOrderAsync(string orderId);
 

@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain.DTO
 {
-    public class OrderStatusDTO
+    public class OrderUpdateDTO
     {
         [JsonRequired]
-        public string OrderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; }
+
+        [JsonRequired]
+        public DateTime ShippingDate { get; set; }
     }
 }

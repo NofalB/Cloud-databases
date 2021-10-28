@@ -59,14 +59,14 @@ namespace Cloud_databases_assignment.Controllers
 
         }
 
-        [Function(nameof(OrderHttpTrigger.UpdateOrderStatus))]
-        public async Task<HttpResponseData> UpdateOrderStatus([HttpTrigger(AuthorizationLevel.Anonymous, "PUT", Route = "orders/{orderId}")] HttpRequestData req, string orderId, FunctionContext executionContext)
+        [Function(nameof(OrderHttpTrigger.UpdateOrder))]
+        public async Task<HttpResponseData> UpdateOrder([HttpTrigger(AuthorizationLevel.Anonymous, "PUT", Route = "orders/{orderId}")] HttpRequestData req, string orderId, FunctionContext executionContext)
         {
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            OrderStatusDTO orderDTO = JsonConvert.DeserializeObject<OrderStatusDTO>(requestBody);
+            OrderUpdateDTO orderDTO = JsonConvert.DeserializeObject<OrderUpdateDTO>(requestBody);
             HttpResponseData response = req.CreateResponse(HttpStatusCode.Created);
-            await response.WriteAsJsonAsync(await _orderService.UpdateOrderStatus(orderDTO, orderId));
+            await response.WriteAsJsonAsync(await _orderService.UpdateOrder(orderDTO, orderId));
             return response;
         }
 
