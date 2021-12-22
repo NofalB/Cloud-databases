@@ -27,17 +27,29 @@ namespace Cloud_databases_assignment.Controllers
 
         //queue trigger to process and store orders
         [Function("OrdersQueue")]
-        public async Task OrdersQueue([QueueTrigger("order-queue", Connection = "BlobCredentialOptions:ConnectionString")] string order,
+        [TableOutput("OrdersTable",Connection = "AzureWebJobsStorage")]
+        public async Task<OrderTableDTO> OrdersQueue([QueueTrigger("order-queue", Connection = "AzureWebJobsStorage")] string orderData,
             FunctionContext context)
         {
             var logger = context.GetLogger("OrdersQueue");
-            logger.LogInformation($"Processing Order: {order}");
+            logger.LogInformation($"Processing Order: {orderData}");
+            var orderDTO = JsonConvert.DeserializeObject<OrderDTO>(orderData);
 
-            var orderDTO = JsonConvert.DeserializeObject<OrderDTO>(order);
+            var order=await _orderService.AddOrder(orderDTO);
 
-            await _orderService.AddOrder(orderDTO);
+            //stores the order in table storage including the shipping and order date
+            return new OrderTableDTO()
+            {
+                PartitionKey = order.PartitionKey,
+                RowKey = order.OrderId.ToString(),
+                OrderDate = order.OrderDate,
+                ShippingDate = order.ShippingDate
+
+            };
         }
 
+
+        //sends order to queue
         [Function(nameof(OrderHttpTrigger.AddOrder))]
         public async Task<QueueOrderOutput> AddOrder([HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route = "orders")] HttpRequestData req, FunctionContext executionContext)
         {
@@ -102,7 +114,7 @@ namespace Cloud_databases_assignment.Controllers
         //class to store message in queue
         public class QueueOrderOutput
         {
-            [QueueOutput("order-queue", Connection = "BlobCredentialOptions:ConnectionString")]
+            [QueueOutput("order-queue", Connection = "AzureWebJobsStorage")]
             public string Orderdata { get; set; }
             public HttpResponseData HttpResponse { get; set; }
         }
