@@ -24,6 +24,9 @@ namespace Domain.DTO
         [JsonRequired]
         public double Price { get; set; }
 
+        [JsonRequired]
+        public List<ProductImage> ImageURLs { get; set; }
+
         public ProductDTO()
         {
 

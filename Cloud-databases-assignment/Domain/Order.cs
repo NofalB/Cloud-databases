@@ -27,6 +27,7 @@ namespace Domain
         [JsonProperty("orderStatus")]
         public OrderStatus OrderStatus { get; set; }
 
+        //shipping date is being stored in azure table storage and can be updated or added when creating the order
         [JsonProperty("shippingDate")]
         public DateTime ShippingDate { get; set; }
 

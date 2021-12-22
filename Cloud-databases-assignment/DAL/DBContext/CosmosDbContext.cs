@@ -40,6 +40,9 @@ namespace DAL.DBContext
                .HasPartitionKey(d => d.PartitionKey)
                .UseETagConcurrency();
 
+            modelBuilder.Entity<Product>()
+                .OwnsMany(p => p.ImageURLs);
+
             modelBuilder.Entity<User>()
                .ToContainer(nameof(Users))
                .HasNoDiscriminator()

@@ -46,7 +46,7 @@ namespace Infrastructure.Services.Products
             product.Description = productDto.Description;
             product.Quantity = productDto.Quantity;
             product.Price = productDto.Price;
-            product.ImageUrl = "";
+            product.ImageURLs = productDto.ImageURLs;
             product.PartitionKey = id.ToString();
 
             return await _productWriteRepository.AddAsync(product);
@@ -119,6 +119,7 @@ namespace Infrastructure.Services.Products
 
         public async Task UploadImage(string productId, FilePart file)
         {
+            //check to verify that the correct file type is uploaded i.e image
             if (file.ContentType == "image/jpeg" || file.ContentType == "image/bmp" || file.ContentType == "image/png")
             {
                 // Get a reference to a blob
@@ -132,8 +133,8 @@ namespace Infrastructure.Services.Products
 
                 var product = await GetProductById(productId);
 
-                //set the new url for the existing story
-                product.ImageUrl = blobUrl;
+                //set the new image url for the existing product
+                product.ImageURLs.Add(new ProductImage(blobUrl));
 
                 await UpdateProduct(product);
             }

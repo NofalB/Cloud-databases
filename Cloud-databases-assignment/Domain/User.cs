@@ -20,6 +20,11 @@ namespace Domain
 
         public string PartitionKey { get; set; }
 
+        public User()
+        {
+
+        }
+
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -23,14 +24,14 @@ namespace Domain
         [JsonProperty("price")]
         public double Price { get; set; }
 
-        [JsonProperty("imageUrl")]
-        public string ImageUrl { get; set; }
+        [JsonProperty("imageUrls")]
+        public List<ProductImage> ImageURLs { get; set; }
 
         public string PartitionKey { get; set; }
 
         public Product()
         {
-            PartitionKey = ProductId.ToString();
+            
         }
     }
 }
