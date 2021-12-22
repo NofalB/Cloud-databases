@@ -1,6 +1,6 @@
 ﻿using Domain;
 using Domain.DTO;
-using Infrastructure.Repositories;
+using DAL.Repositories;
 using Infrastructure.Services.Products;
 using Microsoft.EntityFrameworkCore;
 using System;

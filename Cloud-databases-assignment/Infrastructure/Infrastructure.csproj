@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Repositories\WaterpumpProjectRepo\**" />
-    <EmbeddedResource Remove="Repositories\WaterpumpProjectRepo\**" />
-    <None Remove="Repositories\WaterpumpProjectRepo\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
     <PackageReference Include="HttpMultipartParser" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
@@ -21,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cloud_databases_assignment", "Cloud_databases_assignment\Cloud_databases_assignment.csproj", "{5D478385-F4E1-42F0-AA43-52E295C036FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{DFB8CADD-0820-44F8-B4B2-5716273831EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5D478385-F4E1-42F0-AA43-52E295C036FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D478385-F4E1-42F0-AA43-52E295C036FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D478385-F4E1-42F0-AA43-52E295C036FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB8CADD-0820-44F8-B4B2-5716273831EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB8CADD-0820-44F8-B4B2-5716273831EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB8CADD-0820-44F8-B4B2-5716273831EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB8CADD-0820-44F8-B4B2-5716273831EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

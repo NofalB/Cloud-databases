@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.DBContext
+namespace DAL.DBContext
 {
     public class CosmosDbContext : DbContext
     {
@@ -36,7 +36,7 @@ namespace Infrastructure.DBContext
 
             modelBuilder.Entity<Product>()
                .ToContainer(nameof(Products))
-               .HasNoDiscriminator() 
+               .HasNoDiscriminator()
                .HasPartitionKey(d => d.PartitionKey)
                .UseETagConcurrency();
 

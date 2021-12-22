@@ -3,7 +3,7 @@ using Azure.Storage.Blobs.Models;
 using Domain;
 using Domain.DTO;
 using HttpMultipartParser;
-using Infrastructure.Repositories;
+using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;

@@ -1,7 +1,7 @@
 using Cloud_databases_assignment.ErrorHandlerMiddleware;
 using Domain;
-using Infrastructure.DBContext;
-using Infrastructure.Repositories;
+using DAL.DBContext;
+using DAL.Repositories;
 using Infrastructure.Services;
 using Infrastructure.Services.Orders;
 using Infrastructure.Services.Products;

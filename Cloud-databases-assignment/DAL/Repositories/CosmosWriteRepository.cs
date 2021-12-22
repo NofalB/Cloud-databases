@@ -1,12 +1,12 @@
-﻿using Domain;
-using Infrastructure.DBContext;
+﻿using DAL.DBContext;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Repositories
+namespace DAL.Repositories
 {
     public class CosmosWriteRepository<TEntity> : ICosmosWriteRepository<TEntity> where TEntity : class, new()
     {
