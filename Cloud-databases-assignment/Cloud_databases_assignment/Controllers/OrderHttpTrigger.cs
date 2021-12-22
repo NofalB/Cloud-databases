@@ -27,7 +27,7 @@ namespace Cloud_databases_assignment.Controllers
 
         //queue trigger to process and store orders
         [Function("OrdersQueue")]
-        public async Task OrdersQueue([QueueTrigger("order-queue")] string order,
+        public async Task OrdersQueue([QueueTrigger("order-queue", Connection = "BlobCredentialOptions:ConnectionString")] string order,
             FunctionContext context)
         {
             var logger = context.GetLogger("OrdersQueue");
