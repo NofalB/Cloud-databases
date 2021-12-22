@@ -25,6 +25,7 @@ namespace Cloud_databases_assignment.Controllers
             _orderService = orderService;
         }
 
+        //queue trigger to process and store orders
         [Function("OrdersQueue")]
         public async Task OrdersQueue([QueueTrigger("order-queue")] string order,
             FunctionContext context)
@@ -98,6 +99,7 @@ namespace Cloud_databases_assignment.Controllers
             return response;
         }
 
+        //class to store message in queue
         public class QueueOrderOutput
         {
             [QueueOutput("order-queue", Connection = "BlobCredentialOptions:ConnectionString")]

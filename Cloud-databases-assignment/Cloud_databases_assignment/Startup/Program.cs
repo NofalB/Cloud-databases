@@ -29,6 +29,7 @@ namespace Cloud_databases_assignment.Startup {
 			host.Run();
 		}
 
+		//Dependency Injection for repos,services and db context
 		static void Configure(HostBuilderContext Builder, IServiceCollection Services) {
 
 			// DBContext
