@@ -25,16 +25,34 @@ namespace Cloud_databases_assignment.Controllers
             _orderService = orderService;
         }
 
-        [Function(nameof(OrderHttpTrigger.AddOrder))]
-        public async Task<HttpResponseData> AddOrder([HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route = "orders")] HttpRequestData req, FunctionContext executionContext)
+        [Function("OrdersQueue")]
+        public async Task OrdersQueue([QueueTrigger("order-queue")] string order,
+            FunctionContext context)
         {
-            
+            var logger = context.GetLogger("OrdersQueue");
+            logger.LogInformation($"Processing Order: {order}");
+
+            var orderDTO = JsonConvert.DeserializeObject<OrderDTO>(order);
+
+            await _orderService.AddOrder(orderDTO);
+        }
+
+        [Function(nameof(OrderHttpTrigger.AddOrder))]
+        public async Task<QueueOrderOutput> AddOrder([HttpTrigger(AuthorizationLevel.Anonymous, "POST", Route = "orders")] HttpRequestData req, FunctionContext executionContext)
+        {
+
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            OrderDTO orderDTO = JsonConvert.DeserializeObject<OrderDTO>(requestBody);
-            HttpResponseData response = req.CreateResponse(HttpStatusCode.Created);
-            await response.WriteAsJsonAsync(await _orderService.AddOrder(orderDTO));
-            return response;
-           
+            var orderDTO = JsonConvert.DeserializeObject<OrderDTO>(requestBody);
+            var response = req.CreateResponse(HttpStatusCode.Created);
+            await response.WriteAsJsonAsync(orderDTO);
+
+            return new QueueOrderOutput()
+            {
+                Orderdata = requestBody,
+                HttpResponse = response
+            };
+
+
         }
 
         [Function(nameof(OrderHttpTrigger.GetOrders))]
@@ -73,11 +91,18 @@ namespace Cloud_databases_assignment.Controllers
         [Function(nameof(OrderHttpTrigger.DeleteOrder))]
         public async Task<HttpResponseData> DeleteOrder([HttpTrigger(AuthorizationLevel.Anonymous, "DELETE", Route = "users/{userId}")] HttpRequestData req, string orderId, FunctionContext executionContext)
         {
-            
+
             HttpResponseData response = req.CreateResponse(HttpStatusCode.Accepted);
             await _orderService.DeleteOrderAsync(orderId);
             await response.WriteStringAsync("The order has been deleted");
             return response;
+        }
+
+        public class QueueOrderOutput
+        {
+            [QueueOutput("order-queue", Connection = "BlobCredentialOptions:ConnectionString")]
+            public string Orderdata { get; set; }
+            public HttpResponseData HttpResponse { get; set; }
         }
     }
 }
