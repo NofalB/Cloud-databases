@@ -27,8 +27,9 @@ namespace Cloud_databases_assignment.Controllers
 
         //queue trigger to process and store orders
         [Function("OrdersQueue")]
+        //to store the orders in table storage
         [TableOutput("OrdersTable",Connection = "AzureWebJobsStorage")]
-        public async Task<OrderTableDTO> OrdersQueue([QueueTrigger("order-queue", Connection = "AzureWebJobsStorage")] string orderData,
+        public async Task<OrderTableStorageDTO> OrdersQueue([QueueTrigger("order-queue", Connection = "AzureWebJobsStorage")] string orderData,
             FunctionContext context)
         {
             var logger = context.GetLogger("OrdersQueue");
@@ -38,7 +39,7 @@ namespace Cloud_databases_assignment.Controllers
             var order=await _orderService.AddOrder(orderDTO);
 
             //stores the order in table storage including the shipping and order date
-            return new OrderTableDTO()
+            return new OrderTableStorageDTO()
             {
                 PartitionKey = order.PartitionKey,
                 RowKey = order.OrderId.ToString(),

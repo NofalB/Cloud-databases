@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.DTO
 {
-    public class OrderTableDTO
+    public class OrderTableStorageDTO
     {
         public string PartitionKey { get; set; }
 
@@ -16,7 +16,7 @@ namespace Domain.DTO
 
         public DateTime ShippingDate { get; set; }
 
-        public OrderTableDTO()
+        public OrderTableStorageDTO()
         {
 
         }

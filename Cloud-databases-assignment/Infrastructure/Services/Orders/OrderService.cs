@@ -39,7 +39,7 @@ namespace Infrastructure.Services.Orders
                     throw new NullReferenceException($"this product with product id {orderDTO.ProductId} does not exist");
 
                 }
-                Order order = new Order( Guid.NewGuid(), orderDTO.ProductId, orderDTO.Quantity, orderDTO.TotalPrice, OrderStatus.ordered, orderDTO.ShippingDate, orderDTO.UserId);
+                Order order = new Order( Guid.NewGuid(), orderDTO.ProductId, orderDTO.Quantity, orderDTO.TotalPrice, OrderStatus.ordered, orderDTO.ShippingDate, Guid.NewGuid());
                 return await _orderWriteRepository.AddAsync(order);
 
             }
